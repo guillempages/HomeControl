@@ -99,11 +99,13 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
             }
         }
         final String responseSpeech = result.getFulfillment().getSpeech();
-        mTts.speak(responseSpeech, TextToSpeech.QUEUE_FLUSH, SPEECH_PARAMS, responseSpeech);
+        speak(responseSpeech);
 
-        if (TextUtils.equals(result.getAction(), "radio_on")) {
-            Log.d(TAG, "Radio einschalten: " + parameterString);
-            radioOn(result.getParameters());
+        switch (result.getAction()) {
+            case "radio_on":
+                Log.d(TAG, "Radio einschalten: " + parameterString);
+                radioOn(result.getParameters());
+                break;
         }
 
         runOnUiThread(new Runnable() {
@@ -116,6 +118,20 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
         });
     }
 
+    /**
+     * Speak the given text through the notification stream.
+     *
+     * @param responseSpeech The text to speak.
+     */
+    private void speak(final String responseSpeech) {
+        mTts.speak(responseSpeech, TextToSpeech.QUEUE_FLUSH, SPEECH_PARAMS, responseSpeech);
+    }
+
+    /**
+     * Switch the radio on.
+     *
+     * @param parameters The user supplied parameters to help decide which radio to turn on.
+     */
     private void radioOn(final HashMap<String, JsonElement> parameters) {
 
     }
