@@ -6,18 +6,16 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.Engine;
-import android.speech.tts.TextToSpeech.EngineInfo;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -36,8 +34,10 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
 
     private static final String TAG = "HomeControl";
 
+    private static final Locale LOCALE = Locale.GERMANY;
     private static final Bundle SPEECH_PARAMS = new Bundle();
-    static {SPEECH_PARAMS.putInt(Engine.KEY_PARAM_STREAM, AudioManager.STREAM_NOTIFICATION);
+    static {
+        SPEECH_PARAMS.putInt(Engine.KEY_PARAM_STREAM, AudioManager.STREAM_NOTIFICATION);
     }
 
     private AIService mAiService;
@@ -51,8 +51,8 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final AIConfiguration config = new AIConfiguration("f54f2605a9d14bf5bbe40aa44f618c63",
-                SupportedLanguages.German,
-                AIConfiguration.RecognitionEngine.System);
+                                                           SupportedLanguages.German,
+                                                           AIConfiguration.RecognitionEngine.System);
         mAiService = AIService.getService(this, config);
         mAiService.setListener(this);
 
@@ -60,15 +60,11 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
         mListenButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View view) {
-                 startListening();
+                startListening();
             }
         });
         mResultTextView = ((TextView) findViewById(R.id.main_text_view));
         mTts = new TextToSpeech(this, this);
-
-        for (final EngineInfo engine: mTts.getEngines()) {
-            Log.d(TAG, "Available Engine: " + engine);
-        }
     }
 
     private void startListening() {
@@ -98,33 +94,44 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
                 parameterString += "(" + entry.getKey() + ", " + entry.getValue() + ") ";
             }
         }
-        final String responseSpeech = result.getFulfillment().getSpeech();
-        speak(responseSpeech);
 
-        switch (result.getAction()) {
+        String responseSpeech = result.getFulfillment().getSpeech();
+
+        switch (result.getAction().toLowerCase(LOCALE)) {
             case "radio_on":
                 Log.d(TAG, "Switch radio on: " + parameterString);
                 radioOn(result.getParameters());
                 break;
+            case "input.welcome":
+                Log.d(TAG, "Hello");
+                break;
+            case "get_time":
+                Log.d(TAG, "Time requested");
+                final Calendar calendar = Calendar.getInstance();
+
+                responseSpeech = getString(R.string.reply_time, calendar.getTimeInMillis());
+                break;
         }
+
+        respond(responseSpeech);
+    }
+
+    /**
+     * Give feedback to the user.
+     * Speak the given text through the notification stream and write it to the output text field.
+     *
+     * @param response The feedback to give to the user.
+     */
+    private void respond(final String response) {
+        mTts.speak(response, TextToSpeech.QUEUE_FLUSH, SPEECH_PARAMS, response);
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
                 // Show results in TextView.
-                mResultTextView.setText(responseSpeech);
+                mResultTextView.setText(response);
             }
         });
-    }
-
-    /**
-     * Speak the given text through the notification stream.
-     *
-     * @param responseSpeech The text to speak.
-     */
-    private void speak(final String responseSpeech) {
-        mTts.speak(responseSpeech, TextToSpeech.QUEUE_FLUSH, SPEECH_PARAMS, responseSpeech);
     }
 
     /**
@@ -174,8 +181,8 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     // TextToSpeech
     @Override
     public void onInit(final int status) {
-        if(status != TextToSpeech.ERROR) {
-            mTts.setLanguage(Locale.GERMANY);
+        if (status != TextToSpeech.ERROR) {
+            mTts.setLanguage(LOCALE);
         }
     }
 }

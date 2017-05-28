@@ -2,4 +2,5 @@
     <string name="app_name">HomeControl</string>
     <string name="listen_btn_off">Listen</string>
     <string name="listen_btn_on">Listening…</string>
+    <string name="reply_time">Es ist %1$tl:%1$tM</string>
 </resources>
