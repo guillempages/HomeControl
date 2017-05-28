@@ -103,7 +103,7 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
 
         switch (result.getAction()) {
             case "radio_on":
-                Log.d(TAG, "Radio einschalten: " + parameterString);
+                Log.d(TAG, "Switch radio on: " + parameterString);
                 radioOn(result.getParameters());
                 break;
         }
