@@ -13,12 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.google.gson.JsonElement;
-
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import ai.api.AIConfiguration.SupportedLanguages;
 import ai.api.AIListener;
@@ -27,6 +22,7 @@ import ai.api.android.AIService;
 import ai.api.model.AIError;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
+import cat.guillempages.homecontrol.apiai.ActionMap;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -35,6 +31,7 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     private static final String TAG = "HomeControl";
 
     private static final Locale LOCALE = Locale.GERMANY;
+
     private static final Bundle SPEECH_PARAMS = new Bundle();
     static {
         SPEECH_PARAMS.putInt(Engine.KEY_PARAM_STREAM, AudioManager.STREAM_NOTIFICATION);
@@ -45,6 +42,8 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     private ToggleButton mListenButton;
 
     private TextToSpeech mTts;
+
+    private ActionMap mActions = new ActionMap(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,32 +85,7 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
         Log.i(TAG, "Got response: " + response);
         final Result result = response.getResult();
 
-        // Get parameters
-        String parameterString = "";
-        if (result.getParameters() != null && !result.getParameters().isEmpty()) {
-            for (final Map.Entry<String, JsonElement> entry
-                    : result.getParameters().entrySet()) {
-                parameterString += "(" + entry.getKey() + ", " + entry.getValue() + ") ";
-            }
-        }
-
-        String responseSpeech = result.getFulfillment().getSpeech();
-
-        switch (result.getAction().toLowerCase(LOCALE)) {
-            case "radio_on":
-                Log.d(TAG, "Switch radio on: " + parameterString);
-                radioOn(result.getParameters());
-                break;
-            case "input.welcome":
-                Log.d(TAG, "Hello");
-                break;
-            case "get_time":
-                Log.d(TAG, "Time requested");
-                final Calendar calendar = Calendar.getInstance();
-
-                responseSpeech = getString(R.string.reply_time, calendar.getTimeInMillis());
-                break;
-        }
+        final String responseSpeech = mActions.getAction(result.getAction()).execute(result);
 
         respond(responseSpeech);
     }
@@ -132,15 +106,6 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
                 mResultTextView.setText(response);
             }
         });
-    }
-
-    /**
-     * Switch the radio on.
-     *
-     * @param parameters The user supplied parameters to help decide which radio to turn on.
-     */
-    private void radioOn(final HashMap<String, JsonElement> parameters) {
-
     }
 
     @Override
