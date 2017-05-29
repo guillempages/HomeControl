@@ -35,6 +35,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'commons-io:commons-io:2.4'
 
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
     wearApp project(':wear')
     compile 'com.google.android.gms:play-services-wearable:10.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
