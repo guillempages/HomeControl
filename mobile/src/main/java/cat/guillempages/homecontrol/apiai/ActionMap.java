@@ -10,6 +10,8 @@ import java.util.Map;
 import cat.guillempages.homecontrol.apiai.action.AbstractAction;
 import cat.guillempages.homecontrol.apiai.action.EmptyAction;
 import cat.guillempages.homecontrol.apiai.action.GetTime;
+import cat.guillempages.homecontrol.apiai.action.RadioOff;
+import cat.guillempages.homecontrol.apiai.action.RadioOn;
 
 /**
  * Helper class to define all supported actions.
@@ -30,6 +32,8 @@ public class ActionMap {
         mDefaultAction = new EmptyAction(context);
 
         addAction(new GetTime(context));
+        addAction(new RadioOn(context));
+        addAction(new RadioOff(context));
     }
 
     /**
