@@ -162,6 +162,7 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     public void onInit(final int status) {
         if (status != TextToSpeech.ERROR) {
             mTts.setLanguage(LOCALE);
+            Log.d(TAG, "Current voice: " + mTts.getVoice());
         }
     }
 }
