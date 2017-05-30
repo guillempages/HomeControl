@@ -11,6 +11,7 @@ import ai.api.model.Result;
 import cat.guillempages.homecontrol.apiai.action.AbstractAction;
 import cat.guillempages.homecontrol.apiai.action.EmptyAction;
 import cat.guillempages.homecontrol.apiai.action.GetTime;
+import cat.guillempages.homecontrol.apiai.action.InputWelcome;
 import cat.guillempages.homecontrol.apiai.action.RadioOff;
 import cat.guillempages.homecontrol.apiai.action.RadioOn;
 
@@ -35,6 +36,7 @@ public class ActionMap {
         addAction(new GetTime(context));
         addAction(new RadioOn(context));
         addAction(new RadioOff(context));
+        addAction(new InputWelcome(context));
     }
 
     /**
