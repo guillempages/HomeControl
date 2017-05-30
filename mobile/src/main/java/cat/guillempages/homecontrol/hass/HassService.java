@@ -40,6 +40,7 @@ public class HassService extends Service {
     public static final int SERVER_PORT = 8123;
     public static final int CONNECTION_TIMEOUT = 10;
     public static final String PROTOCOL = "http";
+    public static final int DISCONNECT_CODE = 1001;
 
     private AtomicBoolean mIsConnecting = new AtomicBoolean(false);
     private AtomicBoolean mIsConnected = new AtomicBoolean(false);
@@ -116,12 +117,28 @@ public class HassService extends Service {
      */
     private void disconnect() {
         if (mHassSocket != null) {
-            mHassSocket.close(1001, "Application closed");
+            Log.d(TAG, "Disconnecting...");
+            mHassSocket.close(DISCONNECT_CODE, "Application closed");
             mHassSocket = null;
         } else {
             mIsConnected.set(false);
         }
     }
+
+    /**
+     * Send the given message to the HASS server.
+     *
+     * @param text The message to send.
+     * @return true if successfully sent; false otherwise.
+     */
+    public boolean send(final String text) {
+        Log.d(TAG, "Sending message: " + text);
+        if (mHassSocket == null || !mIsConnected.get()) {
+            Log.e(TAG, "Could not send message. Server is not connected");
+        }
+        return mHassSocket.send(text);
+    }
+
 
     /**
      * Web socket listener.
@@ -194,7 +211,7 @@ public class HassService extends Service {
         /**
          * Get the instance of the service from the binder.
          *
-         * @return The {@link HaasService} instance.
+         * @return The {@link HassService} instance.
          */
         HassService getService() {
             return HassService.this;

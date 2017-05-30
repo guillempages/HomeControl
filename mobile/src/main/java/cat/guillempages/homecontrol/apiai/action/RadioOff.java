@@ -52,7 +52,7 @@ public class RadioOff extends AbstractAction {
         final String jsonMsg = GSON.toJson(message);
         Log.d(TAG, "Sending request: " + jsonMsg);
         // TODO: get a reference to the HASS service and send the request.
-//        mHassSocket.send(jsonMsg);
+//        mHass.send(jsonMsg);
     }
 
 }
