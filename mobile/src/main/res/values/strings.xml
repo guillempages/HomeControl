@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">HomeControl</string>
-    <string name="listen_btn_off">Listen</string>
-    <string name="listen_btn_on">Listening…</string>
+    <string name="listen_btn_listen">Listen</string>
+    <string name="listen_btn_listening">Listening…</string>
     <string name="reply_time">Es ist %1$tl:%1$tM</string>
     <string name="not_implemented_yet">Sorry, noch nicht implementiert.</string>
 </resources>

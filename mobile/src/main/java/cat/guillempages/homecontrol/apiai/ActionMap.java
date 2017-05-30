@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import ai.api.model.Result;
 import cat.guillempages.homecontrol.apiai.action.AbstractAction;
 import cat.guillempages.homecontrol.apiai.action.EmptyAction;
 import cat.guillempages.homecontrol.apiai.action.GetTime;
@@ -59,5 +60,16 @@ public class ActionMap {
         } else {
             return result;
         }
+    }
+
+    /**
+     * Execute the action corresponding to the result.
+     *
+     * @param result The API.ai result.
+     * @return The String corresponding to the action execution.
+     */
+    @NonNull
+    public String execute(@NonNull final Result result) {
+        return getAction(result.getAction()).execute(result);
     }
 }

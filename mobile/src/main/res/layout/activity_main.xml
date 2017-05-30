@@ -17,12 +17,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ToggleButton
+    <Button
         android:id="@+id/listen_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textOff="@string/listen_btn_off"
-        android:textOn="@string/listen_btn_on"
+        android:text="@string/listen_btn_listen"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

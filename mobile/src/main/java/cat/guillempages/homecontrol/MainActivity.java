@@ -10,8 +10,8 @@ import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import java.util.Locale;
 
@@ -40,7 +40,7 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
 
     private AIService mAiService;
     private TextView mResultTextView;
-    private ToggleButton mListenButton;
+    private Button mListenButton;
 
     private TextToSpeech mTts;
 
@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
         mAiService = AIService.getService(this, config);
         mAiService.setListener(this);
 
-        mListenButton = (ToggleButton) findViewById(R.id.listen_button);
+        mListenButton = (Button) findViewById(R.id.listen_button);
         mListenButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -96,7 +96,7 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
         Log.i(TAG, "Got response: " + response);
         final Result result = response.getResult();
 
-        final String responseSpeech = mActions.getAction(result.getAction()).execute(result);
+        final String responseSpeech = mActions.execute(result);
 
         respond(responseSpeech);
     }
@@ -139,19 +139,22 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     @Override
     public void onListeningStarted() {
         Log.d(TAG, "Listening Started");
-        mListenButton.setChecked(true);
+        mListenButton.setText(R.string.listen_btn_listening);
+        mListenButton.setEnabled(false);
     }
 
     @Override
     public void onListeningCanceled() {
         Log.d(TAG, "Listening Cancelled");
-        mListenButton.setChecked(false);
+        mListenButton.setText(R.string.listen_btn_listen);
+        mListenButton.setEnabled(true);
     }
 
     @Override
     public void onListeningFinished() {
         Log.d(TAG, "Listening Finished");
-        mListenButton.setChecked(false);
+        mListenButton.setText(R.string.listen_btn_listen);
+        mListenButton.setEnabled(true);
     }
 
     // TextToSpeech
