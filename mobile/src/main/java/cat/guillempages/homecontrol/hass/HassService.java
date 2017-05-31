@@ -36,10 +36,10 @@ import okhttp3.internal.tls.OkHostnameVerifier;
 public class HassService extends Service {
 
     private static final String TAG = HassService.class.getSimpleName();
+    public static final String PROTOCOL = "https";
     public static final String SERVER_NAME = "home.guillempages.cat";
     public static final int SERVER_PORT = 8123;
     public static final int CONNECTION_TIMEOUT = 10;
-    public static final String PROTOCOL = "http";
     public static final int DISCONNECT_CODE = 1001;
 
     private AtomicBoolean mIsConnecting = new AtomicBoolean(false);
