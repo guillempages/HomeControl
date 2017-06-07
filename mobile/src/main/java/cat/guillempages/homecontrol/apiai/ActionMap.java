@@ -14,6 +14,7 @@ import cat.guillempages.homecontrol.apiai.action.GetTime;
 import cat.guillempages.homecontrol.apiai.action.InputWelcome;
 import cat.guillempages.homecontrol.apiai.action.RadioOff;
 import cat.guillempages.homecontrol.apiai.action.RadioOn;
+import cat.guillempages.homecontrol.hass.HassService;
 
 /**
  * Helper class to define all supported actions.
@@ -73,5 +74,16 @@ public class ActionMap {
     @NonNull
     public String execute(@NonNull final Result result) {
         return getAction(result.getAction()).execute(result);
+    }
+
+    /**
+     * Store a reference to the Home Assistant service.
+     *
+     * @param haas The home assistant service.
+     */
+    public void setHass(final HassService haas) {
+        for (final AbstractAction action: mActionMap.values()) {
+            action.setHass(haas);
+        }
     }
 }

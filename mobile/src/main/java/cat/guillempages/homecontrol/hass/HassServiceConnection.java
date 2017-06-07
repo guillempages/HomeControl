@@ -2,12 +2,12 @@ package cat.guillempages.homecontrol.hass;
 
 import android.app.Service;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import cat.guillempages.homecontrol.MainActivity;
 import cat.guillempages.homecontrol.hass.HassService.HassBinder;
 
 /**
@@ -18,25 +18,26 @@ import cat.guillempages.homecontrol.hass.HassService.HassBinder;
 public class HassServiceConnection implements ServiceConnection {
     private boolean mServiceBound;
 
-    private HassService mHaas;
+    private HassService mHass;
 
-    private Context mContext;
+    private MainActivity mContext;
 
     /**
      * Constructor.
      *
-     * @param context The context.
+     * @param activity The context.
      */
-    public HassServiceConnection(final Context context) {
-        mContext = context;
+    public HassServiceConnection(final MainActivity activity) {
+        mContext = activity;
     }
 
     @Override
     public void onServiceConnected(final ComponentName className,
                                    final IBinder service) {
         // We've bound to LocalService, cast the IBinder and get LocalService instance
-        mHaas = ((HassBinder) service).getService();
+        mHass = ((HassBinder) service).getService();
         mServiceBound = true;
+        mContext.serviceConnected(mHass);
     }
 
     @Override
@@ -62,17 +63,17 @@ public class HassServiceConnection implements ServiceConnection {
             mContext.unbindService(this);
             mServiceBound = false;
         }
-        mHaas = null;
+        mHass = null;
     }
 
     /**
-     * Get the instance of the HAAS service.
+     * Get the instance of the HASS service.
      *
-     * @return The instance of the bound HAAS service, or null if not bound.
+     * @return The instance of the bound HASS service, or null if not bound.
      */
     @Nullable
-    public HassService getHaas() {
-        return mHaas;
+    public HassService getHass() {
+        return mHass;
     }
 
 }

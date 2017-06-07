@@ -4,7 +4,10 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.lang.ref.WeakReference;
+
 import ai.api.model.Result;
+import cat.guillempages.homecontrol.hass.HassService;
 import cat.guillempages.homecontrol.hass.message.ServiceData;
 import cat.guillempages.homecontrol.hass.message.ServiceRequest;
 
@@ -15,6 +18,7 @@ import cat.guillempages.homecontrol.hass.message.ServiceRequest;
  */
 public class RadioOff extends AbstractAction {
     private static final String TAG = RadioOff.class.getSimpleName();
+    private WeakReference<HassService> mHass;
 
     /**
      * Constructor.
@@ -42,17 +46,24 @@ public class RadioOff extends AbstractAction {
      * Stop the requested radio.
      */
     private void stopRadio() {
-        final ServiceRequest message = new ServiceRequest();
-        message.domain = "media_player";
-        message.service = "media_play_pause";
+        final HassService hass = mHass.get();
+        if (hass == null) {
+            Log.e(TAG, "No connection to HASS service.");
+        } else {
+            final ServiceRequest message = new ServiceRequest();
+            message.domain = "media_player";
+            message.service = "media_pause";
 
-        // TODO: parameterize.
-        message.serviceData = new ServiceData().setEntityId("media_player.despatx");
+            // TODO: parameterize.
+            message.serviceData = new ServiceData().setEntityId("media_player.despatx");
 
-        final String jsonMsg = GSON.toJson(message);
-        Log.d(TAG, "Sending request: " + jsonMsg);
-        // TODO: get a reference to the HASS service and send the request.
-//        mHass.send(jsonMsg);
+            final String jsonMsg = GSON.toJson(message);
+            hass.send(jsonMsg);
+        }
     }
 
+    @Override
+    public void setHass(final HassService hass) {
+        mHass = new WeakReference<>(hass);
+    }
 }
