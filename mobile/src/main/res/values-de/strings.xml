@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="listen_btn_listen">Hören</string>
+    <string name="listen_btn_listening">Ich höre…</string>
+    <string name="reply_time">Es ist %1$tl:%1$tM</string>
+    <string name="not_implemented_yet">Sorry, noch nicht implementiert.</string>
+</resources>

@@ -18,11 +18,13 @@
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
-        <service android:name=".hass.HassService"
-                 android:exported="false"/>
+        <service
+            android:name=".hass.HassService"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package cat.guillempages.homecontrol;
 
 import android.Manifest.permission;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -52,6 +53,9 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final Configuration configuration = getResources().getConfiguration();
+        configuration.setLocale(LOCALE);
+        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
         setContentView(R.layout.activity_main);
         final AIConfiguration config = new AIConfiguration("f54f2605a9d14bf5bbe40aa44f618c63",
                                                            SupportedLanguages.German,
