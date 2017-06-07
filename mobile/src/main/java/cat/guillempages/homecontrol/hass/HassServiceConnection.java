@@ -60,6 +60,7 @@ public class HassServiceConnection implements ServiceConnection {
     public void disconnect() {
         if (mServiceBound) {
             mContext.unbindService(this);
+            mServiceBound = false;
         }
         mHaas = null;
     }
