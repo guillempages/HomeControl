@@ -4,4 +4,14 @@
     <string name="listen_btn_listening">Listening…</string>
     <string name="reply_time">It\'s %1$tl:%1$tM</string>
     <string name="not_implemented_yet">Sorry, not implemented yet.</string>
+
+    <!-- Strings related to Settings -->
+
+    <string name="title_activity_settings">Settings</string>
+    <string name="pref_header_home_assistant">Home Assistant server settings</string>
+    <string name="pref_ha_use_https">Connect via HTTPS</string>
+    <string name="pref_ha_server">Server</string>
+    <string name="pref_ha_port">Port</string>
+    <string name="pref_ha_password">Password</string>
+
 </resources>

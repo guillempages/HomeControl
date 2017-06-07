@@ -2,8 +2,10 @@ package cat.guillempages.homecontrol.hass;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.gson.FieldNamingPolicy;
@@ -36,9 +38,7 @@ import okhttp3.internal.tls.OkHostnameVerifier;
 public class HassService extends Service {
 
     private static final String TAG = HassService.class.getSimpleName();
-    public static final String PROTOCOL = "https";
-    public static final String SERVER_NAME = "home.guillempages.cat";
-    public static final int SERVER_PORT = 8123;
+
     public static final int CONNECTION_TIMEOUT = 10;
     public static final int DISCONNECT_CODE = 1001;
 
@@ -78,7 +78,19 @@ public class HassService extends Service {
      * @return The URL of the server to connect to.
      */
     private String getUrl() {
-        return PROTOCOL + "://" + SERVER_NAME + ":" + SERVER_PORT + "/api/websocket";
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final String protocol;
+        if (prefs.getBoolean("pref_ha_use_https", true)) {
+            protocol = "https";
+        } else {
+            protocol = "http";
+        }
+        final String serverName = prefs.getString("pref_ha_server", "");
+        final String serverPort = prefs.getString("pref_ha_port", "8123");
+        final String url =  protocol + "://" + serverName + ":" + serverPort + "/api/websocket";
+
+        Log.d(TAG, "URL: " + url);
+        return url;
     }
 
     /**
