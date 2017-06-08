@@ -5,8 +5,7 @@ import android.support.annotation.NonNull;
 
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.hass.Hass;
-import cat.guillempages.homecontrol.hass.message.ServiceData;
-import cat.guillempages.homecontrol.hass.message.ServiceRequest;
+import cat.guillempages.homecontrol.hass.entities.OfficePlayer;
 
 /**
  * Turn the radio on.
@@ -36,20 +35,9 @@ public class RadioOn extends AbstractAction {
     public String execute(@NonNull final Result result) {
         super.execute(result);
 
-        startRadio();
+        // TODO: Parameterize
+        new OfficePlayer(mHass).play();
+
         return result.getFulfillment().getSpeech();
-    }
-
-    /**
-     * Start the radio on the desired room.
-     */
-    private void startRadio() {
-        final ServiceRequest message = new ServiceRequest();
-        message.domain = "media_player";
-        message.service = "media_play";
-        // TODO: parameterize.
-        message.serviceData = new ServiceData().setEntityId("media_player.despatx");
-
-        mHass.send(message);
     }
 }
