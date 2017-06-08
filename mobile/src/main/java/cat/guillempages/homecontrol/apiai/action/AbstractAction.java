@@ -4,9 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 import java.util.HashMap;
@@ -26,10 +23,6 @@ public abstract class AbstractAction {
 
     private static final String TAG = AbstractAction.class.getSimpleName();
 
-    // TODO: Join with the instance in HaasService and have a single GSON parser.
-    protected static final Gson GSON = new GsonBuilder()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .create();
     private Context mContext;
 
     /**

@@ -140,14 +140,15 @@ public class HassService extends Service {
     /**
      * Send the given message to the HASS server.
      *
-     * @param text The message to send.
+     * @param message The message to send.
      * @return true if successfully sent; false otherwise.
      */
-    public boolean send(final String text) {
-        Log.d(TAG, "Sending message: " + text);
+    public boolean send(final BaseHassMessage message) {
+        Log.d(TAG, "Sending message: " + message);
         if (mHassSocket == null || !mIsConnected.get()) {
             Log.e(TAG, "Could not send message. Server is not connected");
         }
+        final String text = mGson.toJson(message);
         return mHassSocket.send(text);
     }
 

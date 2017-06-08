@@ -14,7 +14,7 @@ import cat.guillempages.homecontrol.apiai.action.GetTime;
 import cat.guillempages.homecontrol.apiai.action.InputWelcome;
 import cat.guillempages.homecontrol.apiai.action.RadioOff;
 import cat.guillempages.homecontrol.apiai.action.RadioOn;
-import cat.guillempages.homecontrol.hass.HassService;
+import cat.guillempages.homecontrol.hass.Hass;
 
 /**
  * Helper class to define all supported actions.
@@ -30,13 +30,14 @@ public class ActionMap {
      * Constructor.
      *
      * @param context The context.
+     * @param hass The HASS wrapper.
      */
-    public ActionMap(final Context context) {
+    public ActionMap(final Context context, final Hass hass) {
         mDefaultAction = new EmptyAction(context);
 
         addAction(new GetTime(context));
-        addAction(new RadioOn(context));
-        addAction(new RadioOff(context));
+        addAction(new RadioOn(context, hass));
+        addAction(new RadioOff(context, hass));
         addAction(new InputWelcome(context));
     }
 
@@ -74,16 +75,5 @@ public class ActionMap {
     @NonNull
     public String execute(@NonNull final Result result) {
         return getAction(result.getAction()).execute(result);
-    }
-
-    /**
-     * Store a reference to the Home Assistant service.
-     *
-     * @param haas The home assistant service.
-     */
-    public void setHass(final HassService haas) {
-        for (final AbstractAction action: mActionMap.values()) {
-            action.setHass(haas);
-        }
     }
 }

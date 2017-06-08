@@ -28,6 +28,7 @@ import ai.api.model.AIError;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.apiai.ActionMap;
+import cat.guillempages.homecontrol.hass.Hass;
 import cat.guillempages.homecontrol.hass.HassService;
 import cat.guillempages.homecontrol.hass.HassServiceConnection;
 
@@ -50,7 +51,8 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
 
     private TextToSpeech mTts;
 
-    private ActionMap mActions = new ActionMap(this);
+    private final Hass mHass = new Hass();
+    private ActionMap mActions = new ActionMap(this, mHass);
 
     /** Defines callbacks for service binding, passed to bindService() */
     private HassServiceConnection mHassConnection = new HassServiceConnection(this);
@@ -199,6 +201,6 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
      * @param hass The current instance of the HASS service.
      */
     public void serviceConnected(final HassService hass) {
-        mActions.setHass(hass);
+        mHass.setHassService(hass);
     }
 }
