@@ -22,16 +22,6 @@ public class Hass implements ServiceConnectionListener {
     private HassServiceConnection mConnection;
 
     /**
-     * Set the HASS service instance. Needs to be called every time a new instance of the service
-     * is bound.
-     *
-     * @param hassService The instance to the {@link HassService}.
-     */
-    public void setHassService(final HassService hassService) {
-        mHassService = new WeakReference<>(hassService);
-    }
-
-    /**
      * Send the given message to the HASS server.
      *
      * @param message The message to send.
@@ -78,5 +68,6 @@ public class Hass implements ServiceConnectionListener {
     @Override
     public void onServiceDisconnected() {
         mHassService = null;
+        mConnection = null;
     }
 }
