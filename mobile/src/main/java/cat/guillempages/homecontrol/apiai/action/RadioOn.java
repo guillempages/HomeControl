@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import ai.api.model.Result;
+import cat.guillempages.homecontrol.R;
 import cat.guillempages.homecontrol.hass.Hass;
 import cat.guillempages.homecontrol.hass.entities.OfficePlayer;
 
@@ -36,8 +37,10 @@ public class RadioOn extends AbstractAction {
         super.execute(result);
 
         // TODO: Parameterize
-        new OfficePlayer(mHass).play();
-
-        return result.getFulfillment().getSpeech();
+        if (new OfficePlayer(mHass).play()) {
+            return result.getFulfillment().getSpeech();
+        } else {
+            return getContext().getString(R.string.error_could_not_play);
+        }
     }
 }

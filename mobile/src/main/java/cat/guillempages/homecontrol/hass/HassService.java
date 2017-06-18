@@ -147,6 +147,7 @@ public class HassService extends Service {
         Log.d(TAG, "Sending message: " + message);
         if (mHassSocket == null || !mIsConnected.get()) {
             Log.e(TAG, "Could not send message. Server is not connected");
+            return false;
         }
         final String text = mGson.toJson(message);
         return mHassSocket.send(text);

@@ -25,13 +25,13 @@ public abstract class MediaPlayer {
     /**
      * Start playing.
      */
-    public void play() {
+    public boolean play() {
         final ServiceRequest message = new ServiceRequest();
         message.domain = "media_player";
         message.service = "media_play";
         message.serviceData = new ServiceData().setEntityId(getEntityId());
 
-        mHass.send(message);
+        return mHass.send(message);
     }
 
     /**
