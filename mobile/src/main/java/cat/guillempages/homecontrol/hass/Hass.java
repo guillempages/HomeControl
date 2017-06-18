@@ -70,4 +70,23 @@ public class Hass implements ServiceConnectionListener {
         mHassService = null;
         mConnection = null;
     }
+
+    /**
+     * Check whether the HASS service is bound.
+     *
+     * @return true if the service is bound; false otherwise.
+     */
+    public boolean isBound() {
+        return mConnection != null && mHassService.get() != null;
+    }
+
+    /**
+     * Check whether the HASS service is currently connected to the server.
+     *
+     * @return True if the service is connected to the server; false otherwise.
+     */
+    public boolean isConnected() {
+        final HassService hassService = mHassService.get();
+        return hassService != null && hassService.isConnected();
+    }
 }

@@ -39,6 +39,7 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     private static final Locale LOCALE = Locale.GERMANY;
 
     private static final Bundle SPEECH_PARAMS = new Bundle();
+
     static {
         SPEECH_PARAMS.putInt(Engine.KEY_PARAM_STREAM, AudioManager.STREAM_NOTIFICATION);
     }
@@ -60,8 +61,8 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
         getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
         setContentView(R.layout.activity_main);
         final AIConfiguration config = new AIConfiguration("f54f2605a9d14bf5bbe40aa44f618c63",
-                                                           SupportedLanguages.German,
-                                                           AIConfiguration.RecognitionEngine.System);
+                SupportedLanguages.German,
+                AIConfiguration.RecognitionEngine.System);
         mAiService = AIService.getService(this, config);
         mAiService.setListener(this);
 
@@ -95,11 +96,19 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     }
 
     private void startListening() {
+        updateConnectionStatus();
         if (checkSelfPermission(permission.RECORD_AUDIO) == PERMISSION_GRANTED) {
             mAiService.startListening();
         } else {
             requestPermissions(new String[] {permission.RECORD_AUDIO}, 42);
         }
+    }
+
+    private void updateConnectionStatus() {
+        ((TextView) findViewById(R.id.service_bound_status)).setText(
+                mHass.isBound() ? R.string.service_bound : R.string.service_unbound);
+        ((TextView) findViewById(R.id.service_connected_status)).setText(
+                mHass.isConnected() ? R.string.server_connected : R.string.server_disconnected);
     }
 
     @Override

@@ -43,6 +43,7 @@ class HassService extends Service {
     public static final int DISCONNECT_CODE = 1001;
 
     private AtomicBoolean mIsConnecting = new AtomicBoolean(false);
+
     private AtomicBoolean mIsConnected = new AtomicBoolean(false);
     private WebSocket mHassSocket;
     private WebSocketListener socketListener = new HassSocketListener();
@@ -87,7 +88,7 @@ class HassService extends Service {
         }
         final String serverName = prefs.getString("pref_ha_server", "");
         final String serverPort = prefs.getString("pref_ha_port", "8123");
-        final String url =  protocol + "://" + serverName + ":" + serverPort + "/api/websocket";
+        final String url = protocol + "://" + serverName + ":" + serverPort + "/api/websocket";
 
         Log.d(TAG, "URL: " + url);
         return url;
@@ -135,6 +136,15 @@ class HassService extends Service {
         } else {
             mIsConnected.set(false);
         }
+    }
+
+    /**
+     * Check whether the service is connected.
+     *
+     * @return True if the service is connected, false otherwise.
+     */
+    public boolean isConnected() {
+        return mIsConnected.get();
     }
 
     /**
