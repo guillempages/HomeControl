@@ -35,7 +35,7 @@ import okhttp3.internal.tls.OkHostnameVerifier;
  *
  * Created by guillem on 27/05/2017.
  */
-public class HassService extends Service {
+class HassService extends Service {
 
     private static final String TAG = HassService.class.getSimpleName();
 

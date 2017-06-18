@@ -11,7 +11,7 @@ import java.util.Map;
 
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.R;
-import cat.guillempages.homecontrol.hass.HassService;
+import cat.guillempages.homecontrol.hass.Hass;
 
 /**
  * Base class for all API.AI actions.
@@ -82,7 +82,7 @@ public abstract class AbstractAction {
      *
      * @param haas The home assistant service.
      */
-    public void setHass(final HassService haas) {
+    public void setHass(final Hass haas) {
         // By default, a connection to the HAAS service is not needed.
     }
 }

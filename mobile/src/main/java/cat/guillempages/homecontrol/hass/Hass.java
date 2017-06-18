@@ -4,6 +4,8 @@ import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
+import cat.guillempages.homecontrol.MainActivity;
+import cat.guillempages.homecontrol.hass.HassServiceConnection.ServiceConnectionListener;
 import cat.guillempages.homecontrol.hass.message.BaseHassMessage;
 
 /**
@@ -13,10 +15,11 @@ import cat.guillempages.homecontrol.hass.message.BaseHassMessage;
  *
  * Created by guillem on 08/06/2017.
  */
-public class Hass {
+public class Hass implements ServiceConnectionListener {
     private static final String TAG = Hass.class.getSimpleName();
 
     private WeakReference<HassService> mHassService;
+    private HassServiceConnection mConnection;
 
     /**
      * Set the HASS service instance. Needs to be called every time a new instance of the service
@@ -43,5 +46,37 @@ public class Hass {
         } else {
             return service.send(message);
         }
+    }
+
+    /**
+     * Bind to the Hass Service.
+     *
+     * @param context The Context, to be able to bind to the service.
+     */
+    public void connect(final MainActivity context) {
+        if (mConnection == null) {
+            mConnection = new HassServiceConnection(context);
+            mConnection.registerConnectionListener(this);
+        }
+        mConnection.connect();
+    }
+
+    /**
+     * Unbind from the Hass Service.
+     */
+    public void disconnect() {
+        if (mConnection != null) {
+            mConnection.disconnect();
+        }
+    }
+
+    @Override
+    public void onServiceConnected(final HassService service) {
+        mHassService = new WeakReference<>(service);
+    }
+
+    @Override
+    public void onServiceDisconnected() {
+        mHassService = null;
     }
 }

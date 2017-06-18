@@ -2,12 +2,17 @@ package cat.guillempages.homecontrol.hass;
 
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import cat.guillempages.homecontrol.MainActivity;
+import java.lang.ref.WeakReference;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
 import cat.guillempages.homecontrol.hass.HassService.HassBinder;
 
 /**
@@ -15,19 +20,22 @@ import cat.guillempages.homecontrol.hass.HassService.HassBinder;
  *
  * Created by guillem on 28/05/2017.
  */
-public class HassServiceConnection implements ServiceConnection {
+class HassServiceConnection implements ServiceConnection {
     private boolean mServiceBound;
 
     private HassService mHass;
 
-    private MainActivity mContext;
+    private Context mContext;
+
+    private final Collection<WeakReference<ServiceConnectionListener>> mConnectionListeners
+            = new HashSet<>();
 
     /**
      * Constructor.
      *
      * @param activity The context.
      */
-    public HassServiceConnection(final MainActivity activity) {
+    public HassServiceConnection(final Context activity) {
         mContext = activity;
     }
 
@@ -37,12 +45,34 @@ public class HassServiceConnection implements ServiceConnection {
         // We've bound to LocalService, cast the IBinder and get LocalService instance
         mHass = ((HassBinder) service).getService();
         mServiceBound = true;
-        mContext.serviceConnected(mHass);
+        final Iterator<WeakReference<ServiceConnectionListener>> iterator
+                = mConnectionListeners.iterator();
+        while (iterator.hasNext()) {
+            final WeakReference<ServiceConnectionListener> listenerRef = iterator.next();
+            final ServiceConnectionListener listener = listenerRef.get();
+            if (listener == null) {
+                iterator.remove();
+            } else {
+                listener.onServiceConnected(mHass);
+            }
+        }
     }
 
     @Override
-    public void onServiceDisconnected(final ComponentName arg0) {
+    public void onServiceDisconnected(final ComponentName name) {
         mServiceBound = false;
+        mHass = null;
+        final Iterator<WeakReference<ServiceConnectionListener>> iterator
+                = mConnectionListeners.iterator();
+        while (iterator.hasNext()) {
+            final WeakReference<ServiceConnectionListener> listenerRef = iterator.next();
+            final ServiceConnectionListener listener = listenerRef.get();
+            if (listener == null) {
+                iterator.remove();
+            } else {
+                listener.onServiceDisconnected();
+            }
+        }
     }
 
     /**
@@ -74,6 +104,49 @@ public class HassServiceConnection implements ServiceConnection {
     @Nullable
     public HassService getHass() {
         return mHass;
+    }
+
+    /**
+     * Register a new listener to get notified when the service connects/disconnects.
+     *
+     * @param listener The listener to register.
+     */
+    public void registerConnectionListener(final ServiceConnectionListener listener) {
+        mConnectionListeners.add(new WeakReference<>(listener));
+    }
+
+    /**
+     * Unregister a previously registered listener to get notified when the service
+     * connects/disconnects.
+     *
+     * @param listener The listener to unregister.
+     */
+    public void unregisterConnectionListener(final ServiceConnectionListener listener) {
+        final Iterator<WeakReference<ServiceConnectionListener>> iterator
+                = mConnectionListeners.iterator();
+        while (iterator.hasNext()) {
+            final WeakReference<ServiceConnectionListener> listenerRef = iterator.next();
+            if (listenerRef.get() == null || listenerRef == listener) {
+                iterator.remove();
+            }
+        }
+    }
+
+    /**
+     * Interface to receive notifications when the service gets connected/disconnected.
+     */
+    interface ServiceConnectionListener {
+        /**
+         * The service has been connected.
+         *
+         * @param service The connected service.
+         */
+        void onServiceConnected(final HassService service);
+
+        /**
+         * The service has been disconnected.
+         */
+        void onServiceDisconnected();
     }
 
 }

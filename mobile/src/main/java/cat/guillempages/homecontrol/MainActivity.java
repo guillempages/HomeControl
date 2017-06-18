@@ -29,8 +29,6 @@ import ai.api.model.AIResponse;
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.apiai.ActionMap;
 import cat.guillempages.homecontrol.hass.Hass;
-import cat.guillempages.homecontrol.hass.HassService;
-import cat.guillempages.homecontrol.hass.HassServiceConnection;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -53,9 +51,6 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
 
     private final Hass mHass = new Hass();
     private ActionMap mActions = new ActionMap(this, mHass);
-
-    /** Defines callbacks for service binding, passed to bindService() */
-    private HassServiceConnection mHassConnection = new HassServiceConnection(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,13 +105,13 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     @Override
     protected void onResume() {
         super.onResume();
-        mHassConnection.connect();
+        mHass.connect(this);
     }
 
     @Override
     protected void onPause() {
         mAiService.stopListening();
-        mHassConnection.disconnect();
+        mHass.disconnect();
         super.onPause();
     }
 
@@ -193,14 +188,5 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
             mTts.setLanguage(LOCALE);
             Log.d(TAG, "Current voice: " + mTts.getVoice());
         }
-    }
-
-    /**
-     * Callback to get notified when the HASS service is bound.
-     *
-     * @param hass The current instance of the HASS service.
-     */
-    public void serviceConnected(final HassService hass) {
-        mHass.setHassService(hass);
     }
 }
