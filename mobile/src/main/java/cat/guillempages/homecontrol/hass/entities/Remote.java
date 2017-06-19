@@ -1,6 +1,7 @@
 package cat.guillempages.homecontrol.hass.entities;
 
 import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.message.RemoteServiceRequest;
 import cat.guillempages.homecontrol.hass.message.ServiceData;
 import cat.guillempages.homecontrol.hass.message.ServiceRequest;
 
@@ -26,9 +27,7 @@ public abstract class Remote implements Entity {
      * Start activity.
      */
     public boolean turnOn(final String activity) {
-        final ServiceRequest message = new ServiceRequest();
-        message.domain = "remote";
-        message.service = "turn_on";
+        final ServiceRequest message = new RemoteServiceRequest("turn_on");
         message.serviceData = new ServiceData().setEntityId(getEntityId()).setActivity(activity);
 
         return mHass.send(message);
@@ -38,9 +37,7 @@ public abstract class Remote implements Entity {
      * Stop all activities.
      */
     public boolean turnOff() {
-        final ServiceRequest message = new ServiceRequest();
-        message.domain = "remote";
-        message.service = "turn_off";
+        final ServiceRequest message = new RemoteServiceRequest("turn_off");
         message.serviceData = new ServiceData().setEntityId(getEntityId());
 
         return mHass.send(message);

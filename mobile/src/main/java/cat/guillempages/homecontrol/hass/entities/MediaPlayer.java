@@ -1,6 +1,7 @@
 package cat.guillempages.homecontrol.hass.entities;
 
 import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.message.MediaPlayerServiceRequest;
 import cat.guillempages.homecontrol.hass.message.ServiceData;
 import cat.guillempages.homecontrol.hass.message.ServiceRequest;
 
@@ -26,9 +27,7 @@ public abstract class MediaPlayer implements Entity {
      * Start playing.
      */
     public boolean play() {
-        final ServiceRequest message = new ServiceRequest();
-        message.domain = "media_player";
-        message.service = "media_play";
+        final ServiceRequest message = new MediaPlayerServiceRequest("media_play");
         message.serviceData = new ServiceData().setEntityId(getEntityId());
 
         return mHass.send(message);
@@ -38,9 +37,7 @@ public abstract class MediaPlayer implements Entity {
      * Stop playing.
      */
     public boolean pause() {
-        final ServiceRequest message = new ServiceRequest();
-        message.domain = "media_player";
-        message.service = "media_pause";
+        final ServiceRequest message = new MediaPlayerServiceRequest("media_pause");
         message.serviceData = new ServiceData().setEntityId(getEntityId());
 
         return mHass.send(message);
