@@ -48,6 +48,7 @@ public class RadioOn extends AbstractAction {
         final JsonElement parameter = result.getParameters().get("sonos_name");
         final JsonArray entitiesList = parameter.getAsJsonArray();
         if (entitiesList.size() > 0) {
+            // TODO: Join all requested players into a single stream.
             for (final JsonElement entity : entitiesList) {
                 final String mediaEntity = entity.getAsString();
                 success |= play(mediaEntity);
