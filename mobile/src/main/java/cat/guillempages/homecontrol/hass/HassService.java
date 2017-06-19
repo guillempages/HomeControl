@@ -154,12 +154,12 @@ class HassService extends Service {
      * @return true if successfully sent; false otherwise.
      */
     public boolean send(final BaseHassMessage message) {
-        Log.d(TAG, "Sending message: " + message);
+        final String text = mGson.toJson(message);
+        Log.d(TAG, "Sending message: " + text);
         if (mHassSocket == null || !mIsConnected.get()) {
             Log.e(TAG, "Could not send message. Server is not connected");
             return false;
         }
-        final String text = mGson.toJson(message);
         return mHassSocket.send(text);
     }
 
