@@ -3,9 +3,14 @@ package cat.guillempages.homecontrol.hass;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
 
 import cat.guillempages.homecontrol.MainActivity;
 import cat.guillempages.homecontrol.hass.HassServiceConnection.ServiceConnectionListener;
+import cat.guillempages.homecontrol.hass.entities.KitchenPlayer;
+import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
+import cat.guillempages.homecontrol.hass.entities.OfficePlayer;
 import cat.guillempages.homecontrol.hass.message.BaseHassMessage;
 
 /**
@@ -20,6 +25,25 @@ public class Hass implements ServiceConnectionListener {
 
     private WeakReference<HassService> mHassService;
     private HassServiceConnection mConnection;
+
+    private final Map<String, MediaPlayer> mMediaPlayers = new HashMap<>();
+
+    /**
+     * Constructor.
+     */
+    public Hass() {
+        addMediaPlayer(new OfficePlayer(this));
+        addMediaPlayer(new KitchenPlayer(this));
+    }
+
+    /**
+     * Add a mediaplayer to the media players map.
+     *
+     * @param mediaPlayer The player to add.
+     */
+    private void addMediaPlayer(final MediaPlayer mediaPlayer) {
+        mMediaPlayers.put(mediaPlayer.getEntityId(), mediaPlayer);
+    }
 
     /**
      * Send the given message to the HASS server.
@@ -88,5 +112,17 @@ public class Hass implements ServiceConnectionListener {
     public boolean isConnected() {
         final HassService hassService = mHassService.get();
         return hassService != null && hassService.isConnected();
+    }
+
+    /**
+     * Get the instance of the media player for the given entity id
+     *
+     * @param entityId The entity to get the media player for.
+     * @return The {@link MediaPlayer} entity.
+     */
+    public MediaPlayer getMediaPlayer(final String entityId) {
+        final MediaPlayer player = mMediaPlayers.get(entityId);
+        Log.d(TAG, "Got player for " + entityId + ": " + player);
+        return player;
     }
 }

@@ -9,6 +9,9 @@ import cat.guillempages.homecontrol.hass.Hass;
  */
 
 public class OfficePlayer extends MediaPlayer {
+
+    public static final String ENTITY_ID = "media_player.despatx";
+
     /**
      * Constructor.
      *
@@ -19,7 +22,7 @@ public class OfficePlayer extends MediaPlayer {
     }
 
     @Override
-    String getEntityId() {
-        return "media_player.despatx";
+    public String getEntityId() {
+        return ENTITY_ID;
     }
 }

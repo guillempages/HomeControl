@@ -8,6 +8,9 @@ import cat.guillempages.homecontrol.hass.Hass;
  * Created by guillem on 08/06/2017.
  */
 public class KitchenPlayer extends MediaPlayer {
+
+    public static final String ENTITY_ID = "media_player.cuina";
+
     /**
      * Constructor.
      *
@@ -18,7 +21,7 @@ public class KitchenPlayer extends MediaPlayer {
     }
 
     @Override
-    String getEntityId() {
-        return "media_player.cuina";
+    public String getEntityId() {
+        return ENTITY_ID;
     }
 }

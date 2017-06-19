@@ -13,4 +13,6 @@
     <string name="pref_ha_port">Port</string>
     <string name="pref_ha_password">Passwort</string>
     <string name="error_could_not_play">Tut mir leid, ich konnte das Radio nicht starten.</string>
+    <string name="error_could_not_pause">Tut mir leid, ich konnte das Radio nicht stoppen.</string>
+
 </resources>

@@ -10,7 +10,7 @@ import cat.guillempages.homecontrol.hass.message.ServiceRequest;
  *
  * Created by guillem on 08/06/2017.
  */
-public abstract class MediaPlayer {
+public abstract class MediaPlayer implements Entity {
     private Hass mHass;
 
     /**
@@ -37,19 +37,12 @@ public abstract class MediaPlayer {
     /**
      * Stop playing.
      */
-    public void pause() {
+    public boolean pause() {
         final ServiceRequest message = new ServiceRequest();
         message.domain = "media_player";
         message.service = "media_pause";
         message.serviceData = new ServiceData().setEntityId(getEntityId());
 
-        mHass.send(message);
+        return mHass.send(message);
     }
-
-    /**
-     * Get the entity Id referenced by this player instance.
-     *
-     * @return The entity id to use in HASS.
-     */
-    abstract String getEntityId();
 }
