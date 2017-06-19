@@ -7,14 +7,27 @@ package cat.guillempages.homecontrol.hass.message;
  */
 public class ServiceData {
     public String entityId;
+    public String activity;
 
     /**
-     * Set the entityId value on this object. Can be used as in a Builder pattern.
+     * Set the entity ID value on this object. Can be used as in a Builder pattern.
+     *
      * @param entityId The entity id to set.
      * @return this instance.
      */
     public ServiceData setEntityId(final String entityId) {
         this.entityId = entityId;
+        return this;
+    }
+
+    /**
+     * Set the activity ID value on this object. Can be used as in a Builder pattern.
+     *
+     * @param activity The activity id to set.
+     * @return this instance.
+     */
+    public ServiceData setActivity(final String activity) {
+        this.activity = activity;
         return this;
     }
 }

@@ -9,6 +9,7 @@ import java.util.Map;
 import cat.guillempages.homecontrol.MainActivity;
 import cat.guillempages.homecontrol.hass.HassServiceConnection.ServiceConnectionListener;
 import cat.guillempages.homecontrol.hass.entities.KitchenPlayer;
+import cat.guillempages.homecontrol.hass.entities.LivingRoomPlayer;
 import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
 import cat.guillempages.homecontrol.hass.entities.OfficePlayer;
 import cat.guillempages.homecontrol.hass.message.BaseHassMessage;
@@ -34,6 +35,7 @@ public class Hass implements ServiceConnectionListener {
     public Hass() {
         addMediaPlayer(new OfficePlayer(this));
         addMediaPlayer(new KitchenPlayer(this));
+        addMediaPlayer(new LivingRoomPlayer(this));
     }
 
     /**

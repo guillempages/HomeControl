@@ -8,6 +8,7 @@ import java.util.Map;
 
 import cat.guillempages.homecontrol.apiai.action.AbstractAction;
 import cat.guillempages.homecontrol.hass.entities.KitchenPlayer;
+import cat.guillempages.homecontrol.hass.entities.LivingRoomPlayer;
 import cat.guillempages.homecontrol.hass.entities.OfficePlayer;
 
 /**
@@ -21,6 +22,7 @@ public class EntityMap {
     static {
         ENTITIES_MAP.put("büro", OfficePlayer.ENTITY_ID);
         ENTITIES_MAP.put("küche", KitchenPlayer.ENTITY_ID);
+        ENTITIES_MAP.put("wohnzimmer", LivingRoomPlayer.ENTITY_ID);
     }
 
     /**
