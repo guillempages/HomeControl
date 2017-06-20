@@ -1,7 +1,10 @@
-package cat.guillempages.homecontrol.hass.entities;
+package cat.guillempages.homecontrol.hass.entities.mediaplayers;
 
 import cat.guillempages.homecontrol.apiai.EntityMap;
 import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
+import cat.guillempages.homecontrol.hass.entities.Remote;
+import cat.guillempages.homecontrol.hass.entities.remotes.HarmonyHub;
 
 /**
  * {@link MediaPlayer} Entity for the Living Room. This entity implicitly starts and stops the

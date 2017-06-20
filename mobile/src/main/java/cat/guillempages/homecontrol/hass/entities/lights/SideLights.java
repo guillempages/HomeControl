@@ -1,6 +1,7 @@
-package cat.guillempages.homecontrol.hass.entities;
+package cat.guillempages.homecontrol.hass.entities.lights;
 
 import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.entities.Light;
 
 /**
  * {@link Light} entity for the wall lights.

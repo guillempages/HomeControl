@@ -1,6 +1,7 @@
-package cat.guillempages.homecontrol.hass.entities;
+package cat.guillempages.homecontrol.hass.entities.remotes;
 
 import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.entities.Remote;
 
 /**
  * {@link Remote} entity for the Harmony Hub.

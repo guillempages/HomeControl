@@ -7,14 +7,14 @@ import java.util.Locale;
 import java.util.Map;
 
 import cat.guillempages.homecontrol.apiai.action.AbstractAction;
-import cat.guillempages.homecontrol.hass.entities.AllLights;
-import cat.guillempages.homecontrol.hass.entities.ColoredLeds;
-import cat.guillempages.homecontrol.hass.entities.HarmonyHub;
-import cat.guillempages.homecontrol.hass.entities.KitchenPlayer;
-import cat.guillempages.homecontrol.hass.entities.LivingRoomPlayer;
-import cat.guillempages.homecontrol.hass.entities.OfficePlayer;
-import cat.guillempages.homecontrol.hass.entities.SideLights;
-import cat.guillempages.homecontrol.hass.entities.WarmLeds;
+import cat.guillempages.homecontrol.hass.entities.lights.AllLights;
+import cat.guillempages.homecontrol.hass.entities.lights.ColoredLeds;
+import cat.guillempages.homecontrol.hass.entities.lights.SideLights;
+import cat.guillempages.homecontrol.hass.entities.lights.WarmLeds;
+import cat.guillempages.homecontrol.hass.entities.mediaplayers.KitchenPlayer;
+import cat.guillempages.homecontrol.hass.entities.mediaplayers.LivingRoomPlayer;
+import cat.guillempages.homecontrol.hass.entities.mediaplayers.OfficePlayer;
+import cat.guillempages.homecontrol.hass.entities.remotes.HarmonyHub;
 
 /**
  * Helper class to map API.AI entities to HASS entities.

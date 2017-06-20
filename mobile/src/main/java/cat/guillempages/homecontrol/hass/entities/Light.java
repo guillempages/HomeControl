@@ -25,7 +25,7 @@ public abstract class Light implements Entity {
      *
      * @param hass The {@link Hass Home Assistant Wrapper}.
      */
-    Light(final Hass hass) {
+    protected Light(final Hass hass) {
         mHass = hass;
     }
 

@@ -8,17 +8,17 @@ import java.util.Map;
 
 import cat.guillempages.homecontrol.MainActivity;
 import cat.guillempages.homecontrol.hass.HassServiceConnection.ServiceConnectionListener;
-import cat.guillempages.homecontrol.hass.entities.AllLights;
-import cat.guillempages.homecontrol.hass.entities.ColoredLeds;
-import cat.guillempages.homecontrol.hass.entities.HarmonyHub;
-import cat.guillempages.homecontrol.hass.entities.KitchenPlayer;
 import cat.guillempages.homecontrol.hass.entities.Light;
-import cat.guillempages.homecontrol.hass.entities.LivingRoomPlayer;
 import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
-import cat.guillempages.homecontrol.hass.entities.OfficePlayer;
 import cat.guillempages.homecontrol.hass.entities.Remote;
-import cat.guillempages.homecontrol.hass.entities.SideLights;
-import cat.guillempages.homecontrol.hass.entities.WarmLeds;
+import cat.guillempages.homecontrol.hass.entities.lights.AllLights;
+import cat.guillempages.homecontrol.hass.entities.lights.ColoredLeds;
+import cat.guillempages.homecontrol.hass.entities.lights.SideLights;
+import cat.guillempages.homecontrol.hass.entities.lights.WarmLeds;
+import cat.guillempages.homecontrol.hass.entities.mediaplayers.KitchenPlayer;
+import cat.guillempages.homecontrol.hass.entities.mediaplayers.LivingRoomPlayer;
+import cat.guillempages.homecontrol.hass.entities.mediaplayers.OfficePlayer;
+import cat.guillempages.homecontrol.hass.entities.remotes.HarmonyHub;
 import cat.guillempages.homecontrol.hass.message.BaseHassMessage;
 
 /**

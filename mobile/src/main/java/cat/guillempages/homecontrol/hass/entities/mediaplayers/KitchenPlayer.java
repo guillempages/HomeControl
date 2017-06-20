@@ -1,6 +1,7 @@
-package cat.guillempages.homecontrol.hass.entities;
+package cat.guillempages.homecontrol.hass.entities.mediaplayers;
 
 import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
 
 /**
  * {@link MediaPlayer} Entity for the Kitchen.
