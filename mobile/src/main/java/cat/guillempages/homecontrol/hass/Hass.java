@@ -8,10 +8,12 @@ import java.util.Map;
 
 import cat.guillempages.homecontrol.MainActivity;
 import cat.guillempages.homecontrol.hass.HassServiceConnection.ServiceConnectionListener;
+import cat.guillempages.homecontrol.hass.entities.HarmonyHub;
 import cat.guillempages.homecontrol.hass.entities.KitchenPlayer;
 import cat.guillempages.homecontrol.hass.entities.LivingRoomPlayer;
 import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
 import cat.guillempages.homecontrol.hass.entities.OfficePlayer;
+import cat.guillempages.homecontrol.hass.entities.Remote;
 import cat.guillempages.homecontrol.hass.message.BaseHassMessage;
 
 /**
@@ -28,6 +30,7 @@ public class Hass implements ServiceConnectionListener {
     private HassServiceConnection mConnection;
 
     private final Map<String, MediaPlayer> mMediaPlayers = new HashMap<>();
+    private final Map<String, Remote> mRemotes = new HashMap<>();
 
     /**
      * Constructor.
@@ -36,6 +39,8 @@ public class Hass implements ServiceConnectionListener {
         addMediaPlayer(new OfficePlayer(this));
         addMediaPlayer(new KitchenPlayer(this));
         addMediaPlayer(new LivingRoomPlayer(this));
+
+        addRemote(new HarmonyHub(this));
     }
 
     /**
@@ -45,6 +50,15 @@ public class Hass implements ServiceConnectionListener {
      */
     private void addMediaPlayer(final MediaPlayer mediaPlayer) {
         mMediaPlayers.put(mediaPlayer.getEntityId(), mediaPlayer);
+    }
+
+    /**
+     * Add a remote to the remotes map.
+     *
+     * @param remote The remote to add.
+     */
+    private void addRemote(final Remote remote) {
+        mRemotes.put(remote.getEntityId(), remote);
     }
 
     /**
@@ -127,4 +141,17 @@ public class Hass implements ServiceConnectionListener {
         Log.d(TAG, "Got player for " + entityId + ": " + player);
         return player;
     }
+
+    /**
+     * Get the instance of the remote for the given entity id
+     *
+     * @param entityId The entity to get the remote for.
+     * @return The {@link Remote} entity.
+     */
+    public Remote getRemote(final String entityId) {
+        final Remote remote = mRemotes.get(entityId);
+        Log.d(TAG, "Got remote for " + entityId + ": " + remote);
+        return remote;
+    }
+
 }

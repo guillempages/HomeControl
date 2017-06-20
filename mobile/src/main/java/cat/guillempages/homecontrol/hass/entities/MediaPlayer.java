@@ -14,7 +14,7 @@ import cat.guillempages.homecontrol.hass.message.ServiceRequest;
 public abstract class MediaPlayer implements Entity {
     public static final String SERVICE_PLAY = "media_play";
     public static final String SERVICE_PAUSE = "media_pause";
-    private Hass mHass;
+    protected Hass mHass;
 
     /**
      * Constructor.
