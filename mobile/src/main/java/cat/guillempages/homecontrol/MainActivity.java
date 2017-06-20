@@ -78,6 +78,12 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     }
 
     @Override
+    protected void onDestroy() {
+        mTts.shutdown();
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
