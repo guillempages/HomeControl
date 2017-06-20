@@ -166,6 +166,8 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
             @Override
             public void run() {
                 mResultTextView.setText(error.getMessage());
+                mListenButton.setText(R.string.listen_btn_listen);
+                mListenButton.setEnabled(true);
             }
         });
     }
