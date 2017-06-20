@@ -12,6 +12,8 @@ import cat.guillempages.homecontrol.hass.message.ServiceRequest;
  * Created by guillem on 08/06/2017.
  */
 public abstract class MediaPlayer implements Entity {
+    public static final String SERVICE_PLAY = "media_play";
+    public static final String SERVICE_PAUSE = "media_pause";
     private Hass mHass;
 
     /**
@@ -27,7 +29,7 @@ public abstract class MediaPlayer implements Entity {
      * Start playing.
      */
     public boolean play() {
-        final ServiceRequest message = new MediaPlayerServiceRequest("media_play");
+        final ServiceRequest message = new MediaPlayerServiceRequest(SERVICE_PLAY);
         message.serviceData = new ServiceData().setEntityId(getEntityId());
 
         return mHass.send(message);
@@ -37,7 +39,7 @@ public abstract class MediaPlayer implements Entity {
      * Stop playing.
      */
     public boolean pause() {
-        final ServiceRequest message = new MediaPlayerServiceRequest("media_pause");
+        final ServiceRequest message = new MediaPlayerServiceRequest(SERVICE_PAUSE);
         message.serviceData = new ServiceData().setEntityId(getEntityId());
 
         return mHass.send(message);
