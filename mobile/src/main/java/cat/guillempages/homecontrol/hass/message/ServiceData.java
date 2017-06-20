@@ -6,8 +6,7 @@ package cat.guillempages.homecontrol.hass.message;
  * Created by guillem on 28/05/2017.
  */
 public class ServiceData {
-    public String entityId;
-    public String activity;
+    private String entityId;
 
     /**
      * Set the entity ID value on this object. Can be used as in a Builder pattern.
@@ -20,14 +19,4 @@ public class ServiceData {
         return this;
     }
 
-    /**
-     * Set the activity ID value on this object. Can be used as in a Builder pattern.
-     *
-     * @param activity The activity id to set.
-     * @return this instance.
-     */
-    public ServiceData setActivity(final String activity) {
-        this.activity = activity;
-        return this;
-    }
 }
