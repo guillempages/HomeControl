@@ -10,6 +10,7 @@ import cat.guillempages.homecontrol.MainActivity;
 import cat.guillempages.homecontrol.hass.HassServiceConnection.ServiceConnectionListener;
 import cat.guillempages.homecontrol.hass.entities.HarmonyHub;
 import cat.guillempages.homecontrol.hass.entities.KitchenPlayer;
+import cat.guillempages.homecontrol.hass.entities.Light;
 import cat.guillempages.homecontrol.hass.entities.LivingRoomPlayer;
 import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
 import cat.guillempages.homecontrol.hass.entities.OfficePlayer;
@@ -31,6 +32,7 @@ public class Hass implements ServiceConnectionListener {
 
     private final Map<String, MediaPlayer> mMediaPlayers = new HashMap<>();
     private final Map<String, Remote> mRemotes = new HashMap<>();
+    private final Map<String, Light> mLights = new HashMap<>();
 
     /**
      * Constructor.
@@ -59,6 +61,15 @@ public class Hass implements ServiceConnectionListener {
      */
     private void addRemote(final Remote remote) {
         mRemotes.put(remote.getEntityId(), remote);
+    }
+
+    /**
+     * Add a light to the lights map.
+     *
+     * @param light The light to add.
+     */
+    private void addLight(final Light light) {
+        mLights.put(light.getEntityId(), light);
     }
 
     /**
@@ -152,6 +163,18 @@ public class Hass implements ServiceConnectionListener {
         final Remote remote = mRemotes.get(entityId);
         Log.d(TAG, "Got remote for " + entityId + ": " + remote);
         return remote;
+    }
+
+    /**
+     * Get the instance of the light for the given entity id
+     *
+     * @param entityId The entity to get the light for.
+     * @return The {@link Light} entity.
+     */
+    public Light getLight(final String entityId) {
+        final Light light = mLights.get(entityId);
+        Log.d(TAG, "Got light for " + entityId + ": " + light);
+        return light;
     }
 
 }

@@ -10,7 +10,6 @@
     <string name="listen_btn_listen">Listen</string>
     <string name="listen_btn_listening">Listening…</string>
     <string name="reply_time">It\'s %1$tl:%1$tM</string>
-    <string name="not_implemented_yet">Sorry, not implemented yet.</string>
 
     <!-- Strings related to Settings -->
 
@@ -20,7 +19,12 @@
     <string name="pref_ha_server">Server</string>
     <string name="pref_ha_port">Port</string>
     <string name="pref_ha_password">Password</string>
+
+    <!-- Error message strings -->
+    <string name="not_implemented_yet">Sorry, not implemented yet.</string>
     <string name="error_could_not_play">Sorry, could not play radio</string>
     <string name="error_could_not_pause">Sorry, could not stop radio</string>
+    <string name="error_could_switch_on_light">Sorry, I could not switch on the light</string>
+    <string name="error_could_switch_off_light">Sorry, I could not switch off the light</string>
 
 </resources>

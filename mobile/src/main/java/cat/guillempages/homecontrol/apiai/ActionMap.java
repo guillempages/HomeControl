@@ -12,6 +12,8 @@ import cat.guillempages.homecontrol.apiai.action.AbstractAction;
 import cat.guillempages.homecontrol.apiai.action.EmptyAction;
 import cat.guillempages.homecontrol.apiai.action.GetTime;
 import cat.guillempages.homecontrol.apiai.action.InputWelcome;
+import cat.guillempages.homecontrol.apiai.action.LightOff;
+import cat.guillempages.homecontrol.apiai.action.LightOn;
 import cat.guillempages.homecontrol.apiai.action.RadioOff;
 import cat.guillempages.homecontrol.apiai.action.RadioOn;
 import cat.guillempages.homecontrol.hass.Hass;
@@ -38,6 +40,8 @@ public class ActionMap {
         addAction(new GetTime(context));
         addAction(new RadioOn(context, hass));
         addAction(new RadioOff(context, hass));
+        addAction(new LightOn(context, hass));
+        addAction(new LightOff(context, hass));
         addAction(new InputWelcome(context));
     }
 

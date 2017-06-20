@@ -3,7 +3,7 @@
     <string name="listen_btn_listen">Hören</string>
     <string name="listen_btn_listening">Ich höre…</string>
     <string name="reply_time">Es ist %1$tl:%1$tM</string>
-    <string name="not_implemented_yet">Sorry, noch nicht implementiert.</string>
+
 
     <!-- Settings -->
     <string name="title_activity_settings">Einstellungen</string>
@@ -12,7 +12,10 @@
     <string name="pref_ha_server">Server</string>
     <string name="pref_ha_port">Port</string>
     <string name="pref_ha_password">Passwort</string>
+    <string name="not_implemented_yet">Sorry, noch nicht implementiert.</string>
     <string name="error_could_not_play">Tut mir leid, ich konnte das Radio nicht starten.</string>
     <string name="error_could_not_pause">Tut mir leid, ich konnte das Radio nicht stoppen.</string>
+    <string name="error_could_switch_on_light">Tut mir leid, ich konnte die Lampe nicht einschalten</string>
+    <string name="error_could_switch_off_light">Tut mir leid, ich konnte die Lampe nicht ausschalten</string>
 
 </resources>
