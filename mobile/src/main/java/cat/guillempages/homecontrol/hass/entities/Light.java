@@ -14,7 +14,7 @@ import cat.guillempages.homecontrol.hass.message.ServiceRequest;
  */
 public abstract class Light implements Entity {
     /** Maximum value for the brightness for any light. */
-    public static final int MAX_BRIGHTNESS = 120;
+    public static final int MAX_BRIGHTNESS = 255;
 
     private static final String SERVICE_TURN_ON = "turn_on";
     private static final String SERVICE_TURN_OFF = "turn_off";

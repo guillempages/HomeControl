@@ -7,10 +7,14 @@ import java.util.Locale;
 import java.util.Map;
 
 import cat.guillempages.homecontrol.apiai.action.AbstractAction;
+import cat.guillempages.homecontrol.hass.entities.AllLights;
+import cat.guillempages.homecontrol.hass.entities.ColoredLeds;
 import cat.guillempages.homecontrol.hass.entities.HarmonyHub;
 import cat.guillempages.homecontrol.hass.entities.KitchenPlayer;
 import cat.guillempages.homecontrol.hass.entities.LivingRoomPlayer;
 import cat.guillempages.homecontrol.hass.entities.OfficePlayer;
+import cat.guillempages.homecontrol.hass.entities.SideLights;
+import cat.guillempages.homecontrol.hass.entities.WarmLeds;
 
 /**
  * Helper class to map API.AI entities to HASS entities.
@@ -28,6 +32,12 @@ public class EntityMap {
 
         // Remotes
         ENTITIES_MAP.put("harmony", HarmonyHub.ENTITY_ID);
+
+        // Lights
+        ENTITIES_MAP.put("alle", AllLights.ENTITY_ID);
+        ENTITIES_MAP.put("seiten", SideLights.ENTITY_ID);
+        ENTITIES_MAP.put("kalte", ColoredLeds.ENTITY_ID);
+        ENTITIES_MAP.put("fernseher", WarmLeds.ENTITY_ID);
     }
 
     /**
