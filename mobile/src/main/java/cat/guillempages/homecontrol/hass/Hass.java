@@ -109,6 +109,12 @@ public class Hass implements ServiceConnectionListener {
             mConnection.registerConnectionListener(this);
         }
         mConnection.connect();
+        if (mHassService != null) {
+            final HassService service = mHassService.get();
+            if (service != null && !service.isConnected()) {
+                service.connect();
+            }
+        }
     }
 
     /**

@@ -102,6 +102,9 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     }
 
     private void startListening() {
+        if (!mHass.isConnected()) {
+            mHass.connect(this);
+        }
         updateConnectionStatus();
         if (checkSelfPermission(permission.RECORD_AUDIO) == PERMISSION_GRANTED) {
             mAiService.startListening();

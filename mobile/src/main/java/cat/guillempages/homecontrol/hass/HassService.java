@@ -97,7 +97,7 @@ class HassService extends Service {
     /**
      * Start a connection to the home assistant server.
      */
-    private void connect() {
+    void connect() {
         // If already connecting, just ignore the call.
         if (mIsConnecting.compareAndSet(true, true)) {
             Log.d(TAG, "Already connecting...");
