@@ -118,6 +118,9 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
                 mHass.isBound() ? R.string.service_bound : R.string.service_unbound);
         ((TextView) findViewById(R.id.service_connected_status)).setText(
                 mHass.isConnected() ? R.string.server_connected : R.string.server_disconnected);
+        ((TextView) findViewById(R.id.service_authenticated_status)).setText(
+                mHass.isAuthenticated() ? R.string.server_authenticated :
+                        R.string.server_not_authenticated);
     }
 
     @Override

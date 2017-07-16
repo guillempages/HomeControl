@@ -2,10 +2,13 @@
     <string name="app_name">HomeControl</string>
     <string name="label_service_bound">Service</string>
     <string name="label_server_connected">Server</string>
+    <string name="label_server_authenticated">Server</string>
     <string name="service_bound">bound</string>
     <string name="service_unbound">unbound</string>
     <string name="server_connected">connected</string>
     <string name="server_disconnected">disconnected</string>
+    <string name="server_authenticated">authenticated</string>
+    <string name="server_not_authenticated">not authenticated</string>
 
     <string name="listen_btn_listen">Listen</string>
     <string name="listen_btn_listening">Listening…</string>

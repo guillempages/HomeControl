@@ -45,6 +45,7 @@ class HassService extends Service {
     private AtomicBoolean mIsConnecting = new AtomicBoolean(false);
 
     private AtomicBoolean mIsConnected = new AtomicBoolean(false);
+    private AtomicBoolean mIsAuthenticated = new AtomicBoolean(false);
     private WebSocket mHassSocket;
     private WebSocketListener socketListener = new HassSocketListener();
 
@@ -148,6 +149,15 @@ class HassService extends Service {
     }
 
     /**
+     * Check whether the service is authenticated.
+     *
+     * @return True if the service is authenticated, false otherwise.
+     */
+    public boolean isAuthenticated() {
+        return mIsAuthenticated.get();
+    }
+
+    /**
      * Send the given message to the HASS server.
      *
      * @param message The message to send.
@@ -155,7 +165,11 @@ class HassService extends Service {
      */
     public boolean send(final BaseHassMessage message) {
         final String text = mGson.toJson(message);
-        Log.d(TAG, "Sending message: " + text);
+        if (message.isSecret()) {
+            Log.d(TAG, "Sending message " + message.getClass().getSimpleName());
+        } else {
+            Log.d(TAG, "Sending message: " + text);
+        }
         if (mHassSocket == null || !mIsConnected.get()) {
             Log.e(TAG, "Could not send message. Server is not connected");
             return false;
@@ -173,6 +187,7 @@ class HassService extends Service {
             Log.d(TAG, "Opening socket...");
             mIsConnecting.set(false);
             mIsConnected.set(true);
+            mIsAuthenticated.set(false);
         }
 
         @Override
@@ -183,8 +198,13 @@ class HassService extends Service {
                 final String type = message.type;
                 switch (type != null ? type : "") {
                     case "auth_required":
+                        mIsAuthenticated.set(false);
                         Log.d(TAG, "Authenticating..");
-                        //TODO: authenticate;
+                        final HassAuthentication authPassword = new HassAuthentication();
+                        final SharedPreferences prefs = PreferenceManager
+                                .getDefaultSharedPreferences(HassService.this);
+                        authPassword.api_password = prefs.getString("pref_ha_password", "");
+                        send(authPassword);
                         break;
                     case "auth_failed":
                     case "auth_invalid":
@@ -193,6 +213,7 @@ class HassService extends Service {
                         break;
                     case "auth_ok":
                         Log.d(TAG, "Authenticated.");
+                        mIsAuthenticated.set(true);
                         break;
                     case "event":
                         // TODO
@@ -211,6 +232,7 @@ class HassService extends Service {
         public void onClosed(final WebSocket webSocket, final int code, final String reason) {
             Log.d(TAG, "WebSocket closed: " + reason);
             mIsConnected.set(false);
+            mIsAuthenticated.set(false);
         }
 
         @Override
@@ -218,6 +240,7 @@ class HassService extends Service {
                               final Response response) {
             mIsConnecting.set(false);
             mIsConnected.set(false);
+            mIsAuthenticated.set(false);
             if (e instanceof SocketException || e instanceof ProtocolException ||
                     e instanceof SSLException || e instanceof UnknownHostException) {
                 Log.e(TAG, "Error while connecting to Socket: ", e);

@@ -10,12 +10,21 @@ public class BaseHassMessage {
     private static int sMessageId = 1;
 
     public String type;
-    private int id;
+    protected Integer id;
 
     /**
      * Constructor.
      */
     public BaseHassMessage() {
         id = sMessageId++;
+    }
+
+    /**
+     * Overwrite this to return true, if messages should not be logged.
+     * @return
+     * whether the message can be logged or not.
+     */
+    public boolean isSecret() {
+        return false;
     }
 }

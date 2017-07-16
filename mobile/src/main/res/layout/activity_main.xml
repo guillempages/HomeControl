@@ -58,4 +58,21 @@
         app:layout_constraintStart_toEndOf="@+id/label_service_connected"
         app:layout_constraintTop_toBottomOf="@+id/service_bound_status"/>
 
+    <TextView
+        android:id="@+id/label_service_authenticated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_server_authenticated"
+        app:layout_constraintTop_toBottomOf="@+id/label_service_connected"/>
+
+    <TextView
+        android:id="@+id/service_authenticated_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/server_not_authenticated"
+        app:layout_constraintStart_toEndOf="@+id/label_service_authenticated"
+        app:layout_constraintTop_toBottomOf="@+id/service_connected_status"/>
+
 </android.support.constraint.ConstraintLayout>

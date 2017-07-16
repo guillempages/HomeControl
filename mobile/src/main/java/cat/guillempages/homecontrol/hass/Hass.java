@@ -157,6 +157,16 @@ public class Hass implements ServiceConnectionListener {
     }
 
     /**
+     * Check whether the HASS service is currently authenticated to the server.
+     *
+     * @return True if the service is authenticated to the server; false otherwise.
+     */
+    public boolean isAuthenticated() {
+        final HassService hassService = mHassService.get();
+        return hassService != null && hassService.isAuthenticated();
+    }
+
+    /**
      * Get the instance of the media player for the given entity id
      *
      * @param entityId The entity to get the media player for.
