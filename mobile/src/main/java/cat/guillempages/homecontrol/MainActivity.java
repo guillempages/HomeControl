@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.AudioManager;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.Engine;
@@ -106,10 +108,12 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
             mHass.connect(this);
         }
         updateConnectionStatus();
-        if (checkSelfPermission(permission.RECORD_AUDIO) == PERMISSION_GRANTED) {
-            mAiService.startListening();
-        } else {
-            requestPermissions(new String[] {permission.RECORD_AUDIO}, 42);
+        if (VERSION.SDK_INT >= VERSION_CODES.M) {
+            if (checkSelfPermission(permission.RECORD_AUDIO) == PERMISSION_GRANTED) {
+                mAiService.startListening();
+            } else {
+                requestPermissions(new String[]{permission.RECORD_AUDIO}, 42);
+            }
         }
     }
 
