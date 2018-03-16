@@ -1,5 +1,7 @@
 package cat.guillempages.homecontrol.hass.entities;
 
+import cat.guillempages.homecontrol.annotations.HassEntity;
+import cat.guillempages.homecontrol.annotations.HassEntity.EntityType;
 import cat.guillempages.homecontrol.hass.Hass;
 import cat.guillempages.homecontrol.hass.message.RemoteServiceData;
 import cat.guillempages.homecontrol.hass.message.RemoteServiceRequest;
@@ -12,6 +14,7 @@ import cat.guillempages.homecontrol.hass.message.ServiceRequest;
  *
  * Created by guillem on 08/06/2017.
  */
+@HassEntity(EntityType.Remote)
 public abstract class Remote implements Entity {
     private static final String SERVICE_TURN_ON = "turn_on";
     private static final String SERVICE_TURN_OFF = "turn_off";
