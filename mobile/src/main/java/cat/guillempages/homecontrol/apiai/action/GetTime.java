@@ -20,7 +20,7 @@ public class GetTime extends AbstractAction {
      * @param context The context.
      */
     public GetTime(final Context context) {
-        super(context);
+        super(context, null);
     }
 
     @Override

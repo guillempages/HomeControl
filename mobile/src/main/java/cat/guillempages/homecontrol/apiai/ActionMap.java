@@ -16,7 +16,7 @@ import cat.guillempages.homecontrol.apiai.action.LightOff;
 import cat.guillempages.homecontrol.apiai.action.LightOn;
 import cat.guillempages.homecontrol.apiai.action.RadioOff;
 import cat.guillempages.homecontrol.apiai.action.RadioOn;
-import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.HassEntityMap;
 
 /**
  * Helper class to define all supported actions.
@@ -32,16 +32,16 @@ public class ActionMap {
      * Constructor.
      *
      * @param context The context.
-     * @param hass The HASS wrapper.
+     * @param hassEntities The HASS entity map.
      */
-    public ActionMap(final Context context, final Hass hass) {
+    public ActionMap(final Context context, final HassEntityMap hassEntities) {
         mDefaultAction = new EmptyAction(context);
 
         addAction(new GetTime(context));
-        addAction(new RadioOn(context, hass));
-        addAction(new RadioOff(context, hass));
-        addAction(new LightOn(context, hass));
-        addAction(new LightOff(context, hass));
+        addAction(new RadioOn(context, hassEntities));
+        addAction(new RadioOff(context, hassEntities));
+        addAction(new LightOn(context, hassEntities));
+        addAction(new LightOff(context, hassEntities));
         addAction(new InputWelcome(context));
     }
 

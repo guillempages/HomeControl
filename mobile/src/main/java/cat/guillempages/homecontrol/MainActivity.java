@@ -31,6 +31,7 @@ import ai.api.model.AIResponse;
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.apiai.ActionMap;
 import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.HassEntityMap;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -53,7 +54,9 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
     private TextToSpeech mTts;
 
     private final Hass mHass = new Hass();
-    private ActionMap mActions = new ActionMap(this, mHass);
+    private HassEntityMap mEntityList = new HassEntityMap(mHass);
+
+    private ActionMap mActions = new ActionMap(this, mEntityList);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,7 @@ public class MainActivity extends Activity implements AIListener, OnInitListener
         });
         mResultTextView = ((TextView) findViewById(R.id.main_text_view));
         mTts = new TextToSpeech(this, this);
+        mHass.setEntityMap(mEntityList);
     }
 
     @Override

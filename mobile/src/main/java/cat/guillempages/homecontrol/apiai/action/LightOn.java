@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.R;
 import cat.guillempages.homecontrol.apiai.EntityMap;
-import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.HassEntityMap;
 import cat.guillempages.homecontrol.hass.entities.Light;
 
 /**
@@ -18,17 +18,15 @@ import cat.guillempages.homecontrol.hass.entities.Light;
  * Created by guillem on 29/05/2017.
  */
 public class LightOn extends AbstractAction {
-    private Hass mHass;
 
     /**
      * Constructor.
      *
      * @param context The context.
-     * @param hass    The HASS wrapper.
+     * @param hass    The HASS entity map.
      */
-    public LightOn(final Context context, final Hass hass) {
-        super(context);
-        mHass = hass;
+    public LightOn(final Context context, final HassEntityMap hass) {
+        super(context, hass);
     }
 
     @Override
@@ -64,8 +62,7 @@ public class LightOn extends AbstractAction {
     private boolean turnOn(final String lightEntity) {
         final boolean success;
         Log.d(getName(), "Turning " + lightEntity + " on");
-        final Light light =
-                mHass.getLight(EntityMap.getEntityName(lightEntity));
+        final Light light = getHassEntities().getLight(EntityMap.getEntityName(lightEntity));
         success = light != null && light.turnOn();
         return success;
     }

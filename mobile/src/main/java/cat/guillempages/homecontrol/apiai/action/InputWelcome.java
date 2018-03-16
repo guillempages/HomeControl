@@ -19,7 +19,7 @@ public class InputWelcome extends AbstractAction {
      * @param context The context.
      */
     public InputWelcome(final Context context) {
-        super(context);
+        super(context, null);
     }
 
     @Override
