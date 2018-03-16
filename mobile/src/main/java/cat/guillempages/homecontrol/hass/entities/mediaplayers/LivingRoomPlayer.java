@@ -1,6 +1,5 @@
 package cat.guillempages.homecontrol.hass.entities.mediaplayers;
 
-import cat.guillempages.homecontrol.apiai.EntityMap;
 import cat.guillempages.homecontrol.hass.Hass;
 import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
 import cat.guillempages.homecontrol.hass.entities.Remote;
@@ -32,13 +31,13 @@ public class LivingRoomPlayer extends MediaPlayer {
 
     @Override
     public boolean play() {
-        final Remote harmony = mHass.getRemote(EntityMap.getEntityName("harmony"));
+        final Remote harmony = mHass.getEntityMap().getRemote(HarmonyHub.ENTITY_ID);
         return harmony.turnOn(HarmonyHub.SONOS_WOHNZIMMER) && super.play();
     }
 
     @Override
     public boolean pause() {
-        final Remote harmony = mHass.getRemote(EntityMap.getEntityName("harmony"));
+        final Remote harmony = mHass.getEntityMap().getRemote(HarmonyHub.ENTITY_ID);
         return harmony.turnOff() && super.pause();
     }
 }

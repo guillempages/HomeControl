@@ -2,6 +2,7 @@ package cat.guillempages.homecontrol.apiai.action;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.JsonElement;
@@ -11,11 +12,11 @@ import java.util.Map;
 
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.R;
-import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.HassEntityMap;
 
 /**
  * Base class for all API.AI actions.
- *
+ * <p>
  * Created by guillem on 29/05/2017.
  */
 
@@ -24,14 +25,17 @@ public abstract class AbstractAction {
     private static final String TAG = AbstractAction.class.getSimpleName();
 
     private Context mContext;
+    private HassEntityMap mEntityMap;
 
     /**
      * Constructor.
      *
-     * @param context The context.
+     * @param context  The context.
+     * @param entities The entity map, to be able to communicate with Hass entities.
      */
-    AbstractAction(final Context context) {
+    AbstractAction(final Context context, @Nullable final HassEntityMap entities) {
         mContext = context;
+        mEntityMap = entities;
     }
 
     /**
@@ -51,7 +55,7 @@ public abstract class AbstractAction {
      */
     public String execute(@NonNull final Result result) {
         Log.d(TAG, "Executing action '" + getName() + "' with parameters '"
-                + getParameterString(result.getParameters()) + "'");
+            + getParameterString(result.getParameters()) + "'");
         return mContext.getString(R.string.not_implemented_yet);
     }
 
@@ -69,7 +73,7 @@ public abstract class AbstractAction {
 
         if (parameters != null && !parameters.isEmpty()) {
             for (final Map.Entry<String, JsonElement> entry
-                    : parameters.entrySet()) {
+                : parameters.entrySet()) {
                 parameterString += "(" + entry.getKey() + ", " + entry.getValue() + ") ";
             }
         }
@@ -78,11 +82,11 @@ public abstract class AbstractAction {
     }
 
     /**
-     * Store a reference to the Home Assistant service.
+     * Get the Hass entity map, to be able to control the entities.
      *
-     * @param haas The home assistant service.
+     * @return The entity map.
      */
-    public void setHass(final Hass haas) {
-        // By default, a connection to the HAAS service is not needed.
+    protected HassEntityMap getHassEntities() {
+        return mEntityMap;
     }
 }

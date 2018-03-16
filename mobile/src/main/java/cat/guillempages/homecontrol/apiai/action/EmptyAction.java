@@ -19,7 +19,7 @@ public class EmptyAction extends AbstractAction {
      * @param context The context.
      */
     public EmptyAction(final Context context) {
-        super(context);
+        super(context, null);
     }
 
     @Override

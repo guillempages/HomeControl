@@ -10,7 +10,7 @@ import com.google.gson.JsonElement;
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.R;
 import cat.guillempages.homecontrol.apiai.EntityMap;
-import cat.guillempages.homecontrol.hass.Hass;
+import cat.guillempages.homecontrol.hass.HassEntityMap;
 import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
 
 /**
@@ -21,17 +21,14 @@ import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
 public class RadioOff extends AbstractAction {
     private static final String DEFAULT_RADIO = "Küche";
 
-    private Hass mHass;
-
     /**
      * Constructor.
      *
      * @param context The context.
-     * @param hass    The HASS wrapper.
+     * @param hass    The HASS entity map.
      */
-    public RadioOff(final Context context, final Hass hass) {
-        super(context);
-        mHass = hass;
+    public RadioOff(final Context context, final HassEntityMap hass) {
+        super(context, hass);
     }
 
     @Override
@@ -74,7 +71,7 @@ public class RadioOff extends AbstractAction {
         final boolean success;
         Log.d(getName(), "Turning " + mediaEntity + " off");
         final MediaPlayer player =
-                mHass.getMediaPlayer(EntityMap.getEntityName(mediaEntity));
+                getHassEntities().getMediaPlayer(EntityMap.getEntityName(mediaEntity));
         success = player != null && player.pause();
         return success;
     }
