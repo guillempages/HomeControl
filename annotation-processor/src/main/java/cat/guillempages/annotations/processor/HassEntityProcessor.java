@@ -32,8 +32,8 @@ import cat.guillempages.homecontrol.annotations.HassEntity.EntityType;
 @SupportedAnnotationTypes("cat.guillempages.homecontrol.annotations.HassEntity")
 public class HassEntityProcessor extends AbstractProcessor {
 
-    private static final String CLASS_NAME = "HassEntityMap";
-    private static final String PACKAGE_NAME = "cat.guillempages.homecontrol.hass";
+    static final String CLASS_NAME = "HassEntityMap";
+    static final String PACKAGE_NAME = "cat.guillempages.homecontrol.hass";
 
     private static final String ENTITIES_PACKAGE_NAME = PACKAGE_NAME + ".entities";
     private static final ClassName HASS_CLASS = ClassName.get(PACKAGE_NAME, "Hass");
