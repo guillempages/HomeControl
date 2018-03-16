@@ -35,7 +35,7 @@ import okhttp3.internal.tls.OkHostnameVerifier;
  *
  * Created by guillem on 27/05/2017.
  */
-class HassService extends Service {
+public class HassService extends Service {
 
     private static final String TAG = HassService.class.getSimpleName();
 
@@ -87,7 +87,7 @@ class HassService extends Service {
         } else {
             protocol = "http";
         }
-        final String serverName = prefs.getString("pref_ha_server", "");
+        final String serverName = prefs.getString("pref_ha_server", "example.com");
         final String serverPort = prefs.getString("pref_ha_port", "8123");
         final String url = protocol + "://" + serverName + ":" + serverPort + "/api/websocket";
 
