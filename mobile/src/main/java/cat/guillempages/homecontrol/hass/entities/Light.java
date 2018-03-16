@@ -1,5 +1,7 @@
 package cat.guillempages.homecontrol.hass.entities;
 
+import cat.guillempages.homecontrol.annotations.HassEntity;
+import cat.guillempages.homecontrol.annotations.HassEntity.EntityType;
 import cat.guillempages.homecontrol.hass.Hass;
 import cat.guillempages.homecontrol.hass.message.LightServiceData;
 import cat.guillempages.homecontrol.hass.message.LightServiceRequest;
@@ -12,6 +14,7 @@ import cat.guillempages.homecontrol.hass.message.ServiceRequest;
  *
  * Created by guillem on 08/06/2017.
  */
+@HassEntity(EntityType.Light)
 public abstract class Light implements Entity {
     /** Maximum value for the brightness for any light. */
     public static final int MAX_BRIGHTNESS = 255;
