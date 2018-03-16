@@ -9,6 +9,7 @@ import com.google.gson.JsonElement;
 
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.R;
+import cat.guillempages.homecontrol.annotations.ApiAiAction;
 import cat.guillempages.homecontrol.apiai.EntityMap;
 import cat.guillempages.homecontrol.hass.HassEntityMap;
 import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
@@ -18,6 +19,7 @@ import cat.guillempages.homecontrol.hass.entities.MediaPlayer;
  *
  * Created by guillem on 29/05/2017.
  */
+@ApiAiAction(isHaas = true)
 public class RadioOn extends AbstractAction {
     private static final String DEFAULT_RADIO = "Küche";
 

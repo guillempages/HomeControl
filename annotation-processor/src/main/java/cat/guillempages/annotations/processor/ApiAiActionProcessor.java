@@ -57,8 +57,11 @@ public class ApiAiActionProcessor extends AbstractProcessor {
         mEntityMapClass = TypeSpec.classBuilder(CLASS_NAME)
             .addModifiers(Modifier.PUBLIC)
             .addJavadoc("Map ApiAiActions to the intent strings form the ApiAi model.\n");
-        final FieldSpec tag = FieldSpec.builder(String.class, "TAG", Modifier.PRIVATE, Modifier
-            .STATIC, Modifier.FINAL).initializer(CLASS_NAME + ".class.getSimpleName()").build();
+
+        final FieldSpec tag = FieldSpec.builder(String.class, "TAG")
+            .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+            .initializer(CLASS_NAME + ".class.getSimpleName()")
+            .build();
         mEntityMapClass.addField(tag);
     }
 
@@ -111,11 +114,13 @@ public class ApiAiActionProcessor extends AbstractProcessor {
                 ClassName.get(HassEntityProcessor.PACKAGE_NAME, HassEntityProcessor.CLASS_NAME),
                 "hassEntities", Modifier.FINAL)
             .addModifiers(Modifier.PUBLIC)
+
             .addJavadoc("Constructor.\n\n")
             .addJavadoc("@param context The context.\n")
-            .addJavadoc("@param hassEntities the Hass entity list.\n");
-        constructor.addStatement(defaultAction.name + " = new $T(context)", EMPTY_ACTION_CLASS);
-        constructor.addCode("\n");
+            .addJavadoc("@param hassEntities the Hass entity list.\n")
+
+            .addStatement(defaultAction.name + " = new $T(context)", EMPTY_ACTION_CLASS)
+            .addCode("\n");
         addActionsToConstructor(constructor, actionsMap, apiActions);
         mEntityMapClass.addMethod(constructor.build());
     }
@@ -131,10 +136,13 @@ public class ApiAiActionProcessor extends AbstractProcessor {
             .addParameter(ParameterSpec.builder(RESULT_CLASS, "result", Modifier.FINAL)
                 .addAnnotation(NONNULL_ANNOTATION)
                 .build())
+
             .addJavadoc("Execute the action corresponding to the result.\n\n")
             .addJavadoc("@param result The API.ai result.\n")
             .addJavadoc("@return The String corresponding to the action execution.\n")
+
             .addStatement("return getAction(result.getAction()).execute(result)")
+
             .build();
         mEntityMapClass.addMethod(execute);
     }
@@ -152,9 +160,11 @@ public class ApiAiActionProcessor extends AbstractProcessor {
             .addAnnotation(NONNULL_ANNOTATION)
             .addParameter(ParameterSpec.builder(String.class, "action", Modifier.FINAL)
                 .addAnnotation(NONNULL_ANNOTATION).build())
+
             .addJavadoc("Get the {@link AbstractAction action} according to the given string.\n\n")
             .addJavadoc("@param action The desired action's name.\n")
             .addJavadoc("@return The desired action, or the default action if not found.\n")
+
             .addStatement("final $T result = $N.get(action.toLowerCase(Locale.getDefault()));",
                 ABSTRACT_ACTION_CLASS, actionsMap.name)
             .beginControlFlow("if (result == null)")
@@ -162,6 +172,7 @@ public class ApiAiActionProcessor extends AbstractProcessor {
             .nextControlFlow("else")
             .addStatement("return result")
             .endControlFlow()
+
             .build();
         mEntityMapClass.addMethod(getAction);
     }
@@ -178,11 +189,14 @@ public class ApiAiActionProcessor extends AbstractProcessor {
             .addParameter(
                 ParameterSpec.builder(ABSTRACT_ACTION_CLASS, "action", Modifier.FINAL)
                     .addAnnotation(NONNULL_ANNOTATION).build())
+
+            .addJavadoc("Add the given action to the map.\n\n")
+            .addJavadoc("@param action The action to add to the map.\n")
+
             .addStatement(
                 actionsMap.name + ".put(action.getName().toLowerCase($T.getDefault()), action)",
                 Locale.class)
-            .addJavadoc("Add the given action to the map.\n\n")
-            .addJavadoc("@param action The action to add to the map.\n")
+
             .build();
         mEntityMapClass.addMethod(addAction);
         return addAction;

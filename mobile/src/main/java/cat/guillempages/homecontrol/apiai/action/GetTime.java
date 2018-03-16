@@ -7,12 +7,14 @@ import java.util.Calendar;
 
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.R;
+import cat.guillempages.homecontrol.annotations.ApiAiAction;
 
 /**
  * Action for getting the current time and return a human readable string.
  *
  * Created by guillem on 29/05/2017.
  */
+@ApiAiAction
 public class GetTime extends AbstractAction {
     /**
      * Constructor.

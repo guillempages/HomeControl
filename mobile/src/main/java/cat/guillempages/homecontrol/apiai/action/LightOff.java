@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 
 import ai.api.model.Result;
 import cat.guillempages.homecontrol.R;
+import cat.guillempages.homecontrol.annotations.ApiAiAction;
 import cat.guillempages.homecontrol.apiai.EntityMap;
 import cat.guillempages.homecontrol.hass.HassEntityMap;
 import cat.guillempages.homecontrol.hass.entities.Light;
@@ -17,6 +18,7 @@ import cat.guillempages.homecontrol.hass.entities.Light;
  *
  * Created by guillem on 29/05/2017.
  */
+@ApiAiAction(isHaas = true)
 public class LightOff extends AbstractAction {
 
     /**

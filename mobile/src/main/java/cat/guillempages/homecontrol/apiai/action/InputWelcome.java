@@ -4,13 +4,14 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import ai.api.model.Result;
+import cat.guillempages.homecontrol.annotations.ApiAiAction;
 
 /**
  * Greeting action.
  *
  * Created by guillem on 29/05/2017.
  */
-
+@ApiAiAction
 public class InputWelcome extends AbstractAction {
 
     /**
