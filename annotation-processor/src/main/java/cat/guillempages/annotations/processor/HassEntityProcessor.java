@@ -41,7 +41,7 @@ public class HassEntityProcessor extends AbstractProcessor {
     private static final ClassName LOG_CLASS =
         ClassName.get("android.util", "Log");
     private static final ClassName NULLABLE_ANNOTATION =
-        ClassName.get("android.support.annotation", "Nullable");
+        ClassName.get("androidx.annotation", "Nullable");
 
     private final Builder mEntityMapClass;
 

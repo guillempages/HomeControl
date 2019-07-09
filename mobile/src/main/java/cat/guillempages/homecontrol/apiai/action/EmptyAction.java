@@ -1,7 +1,7 @@
 package cat.guillempages.homecontrol.apiai.action;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import ai.api.model.Result;
 

@@ -38,7 +38,7 @@ public class ApiAiActionProcessor extends AbstractProcessor {
 
     private static final ClassName CONTEXT_CLASS = ClassName.get("android.content", "Context");
     private static final ClassName NONNULL_ANNOTATION =
-        ClassName.get("android.support.annotation", "NonNull");
+        ClassName.get("androidx.annotation", "NonNull");
 
     private static final ClassName RESULT_CLASS = ClassName.get("ai.api.model", "Result");
 
