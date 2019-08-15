@@ -1,1 +1,1 @@
-include ':mobile', ':wear', ':annotation-processor', ':annotation-definition'
+include ':mobile', ':annotation-processor', ':annotation-definition'
