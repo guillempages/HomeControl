@@ -19,6 +19,8 @@ import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
@@ -32,6 +34,7 @@ import cat.guillempages.homecontrol.annotations.ApiAiAction;
  * a map class with all Api.AI actions that are annotated.
  */
 @SupportedAnnotationTypes("cat.guillempages.homecontrol.annotations.ApiAiAction")
+@SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class ApiAiActionProcessor extends AbstractProcessor {
     private static final String CLASS_NAME = "ActionMap";
     private static final String PACKAGE_NAME = "cat.guillempages.homecontrol.apiai";

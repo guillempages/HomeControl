@@ -20,6 +20,8 @@ import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
@@ -30,6 +32,7 @@ import cat.guillempages.homecontrol.annotations.HassEntity;
 import cat.guillempages.homecontrol.annotations.HassEntity.EntityType;
 
 @SupportedAnnotationTypes("cat.guillempages.homecontrol.annotations.HassEntity")
+@SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class HassEntityProcessor extends AbstractProcessor {
 
     static final String CLASS_NAME = "HassEntityMap";
@@ -190,7 +193,7 @@ public class HassEntityProcessor extends AbstractProcessor {
      * will map the entities according to the {@link HassEntity#value()}.
      *
      * @param hassEntities The collection of Elements with the HassEntity annotation.
-     * @return
+     * @return all entities annotated with @HassEntity
      */
     private EnumMap<EntityType, List<TypeElement>> readEntities(
         final Collection<? extends Element> hassEntities) {
