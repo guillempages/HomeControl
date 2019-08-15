@@ -31,6 +31,8 @@
         android:id="@+id/label_service_bound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:text="@string/label_service_bound"/>
 
     <TextView
@@ -39,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/service_unbound"
+        app:layout_constraintBaseline_toBaselineOf="@+id/label_service_bound"
         app:layout_constraintStart_toEndOf="@+id/label_service_bound"/>
 
     <TextView
@@ -46,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_server_connected"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_service_bound"/>
 
     <TextView
@@ -63,6 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_server_authenticated"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_service_connected"/>
 
     <TextView

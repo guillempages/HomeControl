@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">HomeControl</string>
+    <string name="label_service_bound">Service</string>
+    <string name="label_server_connected">Server</string>
+    <string name="label_server_authenticated">Server</string>
+    <string name="service_bound">gebunden</string>
+    <string name="service_unbound">ungebunden</string>
+    <string name="server_connected">verbunden</string>
+    <string name="server_disconnected">nicht verbunden</string>
+    <string name="server_authenticated">eingeloggt</string>
+    <string name="server_not_authenticated">nicht eingeloggt</string>
+
     <string name="listen_btn_listen">Hören</string>
     <string name="listen_btn_listening">Ich höre…</string>
     <string name="reply_time">Es ist %1$tl:%1$tM</string>

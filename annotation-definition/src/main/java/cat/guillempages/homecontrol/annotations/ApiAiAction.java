@@ -13,9 +13,9 @@ import java.lang.annotation.Target;
 public @interface ApiAiAction {
     /**
      * Whether the action is HAAS related or not. HAAS related actions will get the Haas Entity
-     * list passsed as argument on the constructor.
+     * list passed as argument on the constructor.
      *
-     * @return true if the actin is HAAS related. defaults to false.
+     * @return true if the action is HAAS related. defaults to false.
      */
     boolean isHaas() default false;
 }
